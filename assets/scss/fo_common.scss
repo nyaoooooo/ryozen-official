@@ -1,0 +1,1717 @@
+$gray1: #111111;
+$gray3: #333333;
+$gray5: #555555;
+$gray7: #777777;
+$gray70: #7a7a7a;
+$gray7070: #707070;
+
+$gray9: #999999;
+$grayb: #bbbbbb;
+$graye: #eeeeee;
+$white: #ffffff;
+
+$rzred: #863a3a;
+$link_blue: #2b7bb9;
+$hind: YakuHanJP, 'Hind', sans-serif; //light: 300, regular: 400, medium: 500, semi-bold: 600, bold: 700
+$noto: YakuHanJP, 'Noto Sans JP', sans-serif; //regular: 400, medium: 500, bold: 700
+$gothic: YakuHanJP, sans-serif; //regular: 400, medium: 500, bold: 700
+
+$gothic_bold: 600;
+
+$font_normal: 16px;
+$margin_narrow: 8px;
+$margin_nomal: 20px;
+$margin_wide: 30px;
+$padding_nomal: 20px;
+$footer_height: 200px;
+$text-height: 3.0em;
+
+/* メディアクエリー用 */
+$pc_min: 1064px;
+$tab_max: 768px;
+$sp_max: 640px;
+$layout_min: 320px;
+
+
+
+
+
+/*=======================================
+  リセット
+=======================================*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	//font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+	word-break: break-all;
+}
+  
+body {
+	line-height: 1;
+}
+img {
+	width: 100%;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+
+
+/*=======================================
+  ページ制御系
+=======================================*/
+
+/* 高さ制御 */
+html {
+  height: 100vh; /* Use vh as a fallback for browsers that do not support Custom Properties */
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+
+@mixin pc {
+  @media (min-width: ($pc_min)) {
+    @content;
+  }
+}
+@mixin pc_tab_mid {
+  @media (max-width: ($pc_min - 1)) {
+    @content;
+  }
+}
+@mixin tab {
+  @media (max-width: ($tab_max)) {
+    @content;
+  }
+}
+@mixin sp {
+  @media (max-width: ($sp_max)) {
+    @content;
+  }
+}
+
+body { 
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  //min-height: 100vh;
+  //position: relative;/*←相対位置*/
+  //box-sizing: border-box;/*←全て含めてmin-height: 100vhに*/
+  -webkit-text-size-adjust: 100%; //一部のモバイル端末で使われる、テキストの自動拡大アルゴリズムを制御
+  font-family: $gothic;
+  font-size: $font_normal;
+}
+
+a {
+  transition: .15s;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+//メイン
+@mixin main_wrapper {
+  margin: auto;
+  padding: $margin_nomal;
+  //max-width: 1024px;
+  //overflow: hidden;
+}
+
+// 中央ぞろえの指定
+.max_width {
+  max-width: $pc-min;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  @include tab {
+    padding: 0 20px;
+  };
+}
+
+// 2カラム指定
+.two_columns {
+  @include main_wrapper;
+  display: flex;
+  @include tab {
+    display: block;
+  };
+  @include sp {
+    display: block;
+  };
+}
+
+.pc_none {
+  display: none;
+  @include sp {
+    display: block;
+  };
+}
+.tab_block {
+  display: none;
+  @include tab {
+    display: block;
+  };
+}
+.tab_only_block {
+  display: none;
+  @include tab {
+    display: block;
+  };
+  @include sp {
+    display: none;
+  };
+}
+.tab_none {
+  display: block;
+  @include tab {
+    display: none;
+  };
+}
+.sp_none {
+  display: block;
+  @include sp {
+    display: none;
+  };
+}
+.sp_only {
+  @include pc {
+    display: none;
+  };
+  @include pc_tab_mid {
+    display: none;
+  };
+  @include tab {
+    display: none;
+  };
+  @include sp {
+    display: block;
+  };
+}
+
+/*=======================================
+  エリア系
+=======================================*/
+
+// 背景色
+.background_ge {
+  background-color: #f5f5f5;
+}
+// 背景色
+.background_gf {
+  background-color: $white;
+}
+//デフォルトのリンク
+@mixin anchor {
+  text-decoration: none;
+  display: block;
+  padding: 0;
+  transition: all 0.15s ease;
+  &:hover {
+    background-color: #ffffff;
+    opacity: 0.6;
+  }
+}
+// 目次
+@mixin table_of_contents {
+  .toc_outer {
+    width: 100%;
+    margin: 30px auto 60px;
+    padding: 1rem;
+    border: 2px solid $gray9;
+    background-color: #fff;
+    .toc_title {
+      @include title_border_left(20px, 600);
+      margin-top: 0;
+    }
+    ol {
+      margin: 1.2em 0;
+      padding-left: 20px;
+      counter-reset: ol-counter;
+      list-style: none;
+      li {
+        display: block;
+        &::before {
+          counter-increment: ol-counter;
+          content: counters(ol-counter,".");
+          margin-right: 4px;
+        }
+        a {
+          line-height: 1.6;
+          &::before {
+            padding-right: 4px;
+            content: '-';
+          }
+        }
+      }
+    }
+  }
+}
+//記事内引用エリア
+@mixin content_blockquote {
+  position: relative;
+  padding: 10px 60px;
+  box-sizing: border-box;
+  font-style: italic;
+  background: #f5f5f5;
+  color: $gray5;
+  border-left: 4px solid $gray3;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14);
+  &::before {
+    display: inline-block;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    content: "\f10d";
+    font-family: "Font Awesome 5 Free";
+    color: $gray9;
+    font-size: 30px;
+    line-height: 1;
+    font-weight: 900;
+  }
+  &::after {
+    display: inline-block;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    content: "\f10e";
+    font-family: "Font Awesome 5 Free";
+    color: $gray9;
+    font-size: 30px;
+    line-height: 1;
+    font-weight: 900;
+  }
+  p {
+    padding: 0;
+    margin: 7px 0;
+    line-height: 1.7;
+    a {
+      text-decoration: underline;
+      color: $link_blue;
+    }
+  }
+}
+//前後記事
+@mixin prev_next_cards {
+  margin: 0 auto 40px;
+
+  @include pc {
+    display: flex;
+  };
+  @include pc_tab_mid {
+    display: flex;
+  };
+  @include tab {
+    display: block;
+  };
+  @include sp {
+    display: block;
+  };
+  line-height: 1.4;
+  .prev_card {
+    @include pc {
+      flex-basis: calc(100%-4px * 1/2);
+    };
+    width: 100%;
+    .anchor {
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      color: #fff;
+      font-family: $gothic;
+      font-size: 18px;
+      font-weight: $gothic_bold;
+      text-align: center;
+      background: $gray3;
+      padding: 1em 2em;
+      border: solid 4px $gray3;
+      .prev {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 16px;
+      }
+      .title {
+        display: block;
+        font-size: 14px;
+      }
+      &::before {
+        @include arrow_icon_l;
+        position: absolute;
+        left: .8em;
+        top: 50%;
+        transform: translate(0, -50%);
+        margin-right: 10px;
+      }
+      &:hover {
+        background: #fff;
+        color: $gray3;
+      }
+    }
+  }
+  .next_card {
+    @include pc {
+      flex-basis: calc(100%-4px * 1/2);
+      margin-left: 4px;
+    };
+    @include pc_tab_mid {
+      margin-left: 4px;
+    };
+    @include tab {
+      margin-top: 6px;
+      margin-left: 0;
+    };
+    @include sp {
+      margin-top: 6px;
+      margin-left: 0;
+    };
+    width: 100%;
+    .anchor {
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      color: #fff;
+      font-family: $gothic;
+      font-size: 18px;
+      font-weight: $gothic_bold;
+      text-align: center;
+      background: $gray3;
+      padding: 1em 2em;
+      border: solid 4px $gray3;
+      .next {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 16px;
+      }
+      .title {
+        display: block;
+        font-size: 14px;
+      }
+      &::before {
+        @include arrow_icon_r;
+        position: absolute;
+        right: .8em;
+        top: 50%;
+        transform: translate(0, -50%);
+        margin-left: 10px;
+      }
+      &:hover {
+        background: #fff;
+        color: $gray3;
+      }
+    }
+  }
+}
+@mixin sns_share_hover {
+  .fa-twitter-square:hover {
+    color: #1DA1F2;
+  }
+  .fa-facebook-square:hover {
+    color: #3B5998;
+  }
+  .fa-line:hover {
+    color: #00c300;
+  }
+  .fa-get-pocket:hover {
+    color: #EF4056;
+  }
+}
+@mixin sns_share_outer_large {
+  text-align: center;
+  .sns_share {
+    display: inline-block;
+    margin: auto;
+    .msg {
+      font-size: 19px;
+      font-weight: 600;
+      margin: 20px 0
+    }
+    .fa-twitter-square
+    , .fa-facebook-square
+    , .fa-line
+    , .fa-get-pocket {
+      transition: .2s;
+      color: $gray3;
+      @include pc {
+        font-size: 64px;
+        margin: 10px 24px 0 0;
+      };
+      @include pc_tab_mid {
+        font-size: 64px;
+        margin: 10px 24px 0 0;
+      };
+      @include tab {
+        font-size: 64px;
+        margin: 10px 24px 0 0;
+      };
+      @include sp {
+        font-size: 15vw;
+        margin: 0 16px 0 0;
+      };
+    }
+    @include sns_share_hover;
+    .fa-get-pocket {
+      color: $gray3;
+      @include pc {
+        font-size: 64px;
+        margin: 10px 0 0 0;
+      };
+      @include pc_tab_mid {
+        font-size: 64px;
+        margin: 10px 0 0 0;
+      };
+      @include tab {
+        font-size: 64px;
+        margin: 10px 0 0 0;
+      };
+      @include sp {
+        font-size: 15vw;
+        margin: 0;
+      };
+    }
+  }
+}
+@mixin ckeditor_content {
+  margin-bottom: 80px;
+  h2 {
+    @include title_speech_bubble(24px, $gothic_bold);
+    margin-bottom: 40px;
+  }
+  h3 {
+    @include title_border_left_bottom(22px, $gothic_bold);
+    margin-bottom: 40px;
+    line-height: 1.5;
+  }
+  h4 {
+    @include title_border_left(20px, $gothic_bold);
+  }
+  h5 {
+    @include title_check_mark(18px, $gothic_bold);
+  }
+  h6 {
+    @include title_check_mark(18px, normal);
+  }
+  p {
+    font-family: $gothic;
+    font-size: 16px;
+    line-height: 1.8;
+    margin: 20px 0;
+    strong {
+      font-weight: $gothic_bold;
+    }
+    em {
+      font-style: italic;
+    }
+    u {
+      text-decoration: underline;
+    }
+    s {
+      text-decoration: line-through;
+    }
+    a {
+      text-decoration: underline;
+      color: $link_blue;
+    }
+    img {
+      margin: 20px auto;
+      width: 100%;
+    }
+  }
+  blockquote {
+    &:not(.Twitter) {
+      @include content_blockquote;
+    }
+  }
+  table {
+    border-collapse: collapse;
+    margin: 10px auto 10px 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+    thead {
+      tr {
+        background-color: #eee;
+        border: 1px solid #bbb;
+        padding: .35em;
+        th {
+          font-size: .85em;
+          padding: 1em 10px 1em 1em;
+          border-right: 1px solid #bbb;
+        }
+      }
+    }
+    tbody {
+      tr {
+        background-color: #fff;
+        border: 1px solid #bbb;
+        padding: .35em;
+        td {
+          padding: 1em 10px 1em 1em;
+          border-right: 1px solid #bbb;
+          text-align: left;
+          font-size: .85em;
+        }
+      }
+    }
+  }
+  ul {
+    list-style-type: disc;
+    background: #f5f5f5;/*灰色に*/
+    border-radius : 4px;
+    border : solid 1px $gray9;
+    padding: 14px 0 14px 34px;
+    li {
+      font-size: 16px;
+      line-height: 2;
+    }
+  }
+  ol {
+    list-style-type: decimal;
+    background: #f5f5f5;/*灰色に*/
+    border-radius : 4px;
+    border : solid 1px $gray9;
+    padding: 14px 0 14px 34px;
+    li {
+      font-size: 16px;
+      line-height: 2;
+    }
+  }
+  // CKeditor iframe埋め込み
+  .iframe_wrap {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    iframe {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  // 各ページのiflame横幅調整
+  div[data-oembed-url] {
+    width: 100%;
+    > div {
+      max-width: 100%!important;
+    }
+  }
+  .iframely-responsive {
+    height: 190px;
+    iframe {
+      .wf {
+        flex-direction: row;
+        .wc {
+          flex-basis: 50%;
+          }
+        .wt {
+          flex-basis: 50%;
+          .t._f0._ffsa._fsn._fwn {
+            flex-direction: column;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+/*=======================================
+  グリッドレイアウト制御
+=======================================*/
+
+//記事一覧ページ用グリッドレイアウト
+//(モード、グリッドの列数、グリッドの高さ)
+@mixin article_list_card_grid($mode, $minmax_width, $minmax_height) {
+  padding: 0;
+  display: grid;
+  grid-gap: 20px;
+  //grid-template-columns: repeat($times, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax($minmax_width, 1fr));
+  grid-auto-rows: minmax($minmax_height, auto); //高さ
+  list-style: none; //リストの黒丸消すやつ
+  //margin-bottom: 40px;
+  .list_item {
+    background: $white;
+    border: solid 2px #eeeeee;
+    img {
+      width: 100%;
+      border-bottom: dotted 1px #cccccc;
+      transition: all .15s ease;
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+    .title {
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 1.8;
+      color: $gray3;
+      padding: 20px 20px 10px;
+      height: 84px;
+      overflow: hidden;
+      a {
+        transition: all .15s ease;
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+    .sub_info01 {
+      padding: 12px 20px;
+    }
+    @if $mode == creations {
+      .client_nm {
+        font-size: 11px;
+        color: $gray70;
+        padding: 5px 20px 10px;
+      }
+    }
+
+    @if $mode != members {
+      .publish_date {
+        padding: 0.3em 0.5em 0.2em 0;
+        margin-right: 0.5em;
+        border-right: 1px solid $gray3;
+        font-size: 15px;
+      }
+      .category {
+        color: #fff;
+        background: $gray5;
+        display: inline-block;
+        font-size: 15px;
+        a {
+          display: inline-block;
+          padding: 0.3em 1.2em;
+          &:hover {
+            background: $gray1;
+          }
+        }
+      }
+      .caption {
+        font-size: 15px;
+        font-family: $gothic;
+        color: $gray7;
+      }
+      .tag_list {
+        padding: 12px 20px;
+        .tag {
+          display: inline-block;
+          margin: 0 4px 4px 0;
+          color: $gray3;
+          font-size: 12px;
+          background: $graye;
+          a {
+            display: inline-block;
+            padding: 6px;
+            &::before {
+              content: "#";
+            }
+            &:hover {
+              background-color: #bbb;
+            }
+          }
+        }
+      }
+    }
+    @if $mode == members {
+      .title {
+        height: auto;
+      }
+      .position_nm {
+        font-size: 12px;
+        color: $gray3;
+        margin: 5px 20px 10px;
+        height: 14px
+      }
+      .tag_list {
+        padding: 12px 20px;
+        .tag {
+          display: inline-block;
+          margin: 0 4px 4px 0;
+          color: $gray7;
+          background-color: $white;
+          font-size: 12px;
+          &::before {
+            content: "#";
+          }
+        }
+      }
+    }
+  }
+  @include sp {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    .list_item {
+      .title {
+        font-size: 14px;
+      }
+      .sub_info01 {
+        font-size: 14px;
+      }
+    }
+  };
+}
+
+//Home記事一覧エリア用グリッドレイアウト
+//(モード、グリッドの列数、グリッドの高さの最小値)
+@mixin home_article_list_card_grid($mode, $minmax_width, $minmax_height) {
+  padding: 0;
+  display: grid;
+  grid-gap: 20px;
+  //grid-template-columns: repeat($times ,1fr);
+  grid-template-columns: repeat(auto-fill, minmax($minmax_width, 1fr));
+  grid-auto-rows: minmax($minmax_height, auto); //高さ
+  list-style: none; //リストの黒丸消すやつ
+  margin-bottom: 64px;
+  @include sp {
+    margin-bottom: 40px;
+  };
+  .list_item {
+    //position: relative;
+    background: $white;
+    border: solid 2px #eeeeee;
+    img {
+      width: 100%;
+      border-bottom: dotted 1px #cccccc;
+      transition: all .15s ease;
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+    .title {
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 1.8;
+      color: $gray3;
+      padding: 20px 20px 10px;
+      height: 84px;
+      overflow: hidden;
+      a {
+        transition: all .15s ease;
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+    .sub_info01 {
+      padding: 12px 20px;
+    }
+    @if $mode == creations {
+      .client_nm {
+        font-size: 11px;
+        color: $gray70;
+        padding: 5px 20px 10px;
+      }
+    }
+    .publish_date {
+      padding: 0.3em 0.5em 0.2em 0;
+      margin-right: 0.5em;
+      border-right: 1px solid $gray3;
+      font-size: 15px;
+    }
+    .category {
+      color: #fff;
+      background: $gray7;
+      display: inline-block;
+      font-size: 15px;
+      a {
+        display: inline-block;
+        padding: 0.3em 1.2em;
+        &:hover {
+          background: $gray1;
+        }
+      }
+    }
+    .caption {
+      font-size: 16px;
+      font-family: $gothic;
+      color: $gray7;
+    }
+  }
+  @include sp {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    .list_item {
+      .title {
+        font-size: 14px;
+      }
+      .sub_info01 {
+        font-size: 14px;
+      }
+    }
+  };
+}
+
+//News関連記事記事一覧エリア用グリッドレイアウト
+//(モード、グリッドの列数、グリッドの高さの最小値)
+@mixin rel_news_list_card_grid($minmax_width, $minmax_height) {
+  padding: 0;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax($minmax_width, 1fr));
+  grid-auto-rows: minmax($minmax_height, auto); //高さ
+  list-style: none; //リストの黒丸消すやつ
+  .list_item {
+    background: $white;
+    border: solid 2px #eeeeee;
+    position: relative;
+    .category {
+      margin: 0;
+      color: #fff;
+      background: $gray5;
+      display: inline-block;
+      position: absolute;
+      right: 0;
+      top: 0;
+      a {
+        display: inline-block;
+        padding: 0.4em 0.8em;
+        font-size: 12px;
+        &:hover {
+          background: $gray1;
+        }
+      }
+    }
+    .card_image {
+      a {
+        display: block;
+        img {
+          width: 100%;
+          border-bottom: dotted 1px #cccccc;
+        }
+      }
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+    .title {
+      a {
+        padding: 10px;
+        display: block;
+        line-height: 1.8;
+        font-size: 14px;
+        height: 102px;
+        overflow: hidden;
+      }
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+    .sub_info01 {
+      font-size: 14px;
+    }
+  }
+  @include sp {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    .list_item {
+      .title {
+        font-size: 14px;
+        height: auto;
+      }
+    }
+  };
+}
+
+//関連URLグリッド
+@mixin related_link($minmax_width, $minmax_height) {
+  padding: 0;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax($minmax_width, 1fr));
+  grid-auto-rows: minmax($minmax_height, auto); //高さ
+  list-style: none; //リストの黒丸消すやつ
+
+  .list_item {
+    border: solid 2px #eeeeee;
+   
+
+    .link_outer {
+      display: flex;
+      padding: 14px;
+      transition: .2s;
+      &:hover {
+        opacity: 0.7;
+      }
+      .link_card_thumbnail {
+        flex-basis: 30%;
+      }
+      .sub_info {
+        margin-left: 3%; 
+        flex-basis: 67%;
+        .title {
+          font-size: 20px;
+          font-weight: $gothic_bold;
+        }
+        .description {
+          font-size: 14px;
+          line-height: 1.2em;
+          letter-spacing: 0.01em;
+          margin-top: 10px;
+        }
+        .url {
+          margin-top: 10px;
+          .link_card_favicon {
+            width: 14px;
+          }
+          .url_string {
+            color: $gray7;
+            font-size: 10px;
+          }
+        }
+      }
+    }
+  }
+  @include sp {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    .list_item {
+      .link_outer {
+        .sub_info {
+          .title {
+            font-size: 15px;
+          }
+          .description {
+            display: inline-block;
+          }
+          .url {
+            display: inline-block;
+            .url_string {
+              display: none;
+            }
+            .link_card_favicon {
+              display: inline-block;
+            }
+          }
+        }
+      }
+    }
+  };
+}
+
+
+/*=======================================
+  見出し系
+=======================================*/
+
+// ページタイトル
+.page_title {
+  color: $white;
+  padding: 64px 20px;
+  margin-bottom: 40px;
+  font-size: 40px;
+  font-weight: $gothic_bold;
+  font-family: $hind;
+  letter-spacing: .15em;
+  text-align: center;
+  line-height: 1.0;
+  background-image: image-url("page_title_bg.png");
+  background-color: $gray3;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  @include tab {
+    padding: 44px 20px;
+  };
+}
+
+// 通常セクションタイトル(英字)
+@mixin section_title_hind {
+  font-size: 30px;
+  font-weight: $gothic_bold;
+  font-family: $hind;
+  text-align: center;
+  @include tab {
+    font-size: 26px;
+    padding: 40px 0 16px;
+   };
+   @include sp {
+    font-size: 20px;
+    padding: 40px 0 12px;
+   };   
+}
+
+// 通常セクションタイトル(gothic)
+@mixin section_title_gothic {
+  font-size: 30px;
+  font-weight: $gothic_bold;
+  text-align: center;
+  line-height: 1.5;
+  @include tab {
+    font-size: 26px;
+    padding: 40px 0 16px;
+   };
+   @include sp {
+    font-size: 24px;
+    padding: 40px 0 12px;
+   };   
+}
+
+
+@mixin title_speech_bubble($size, $weight, $l_height: 1.4em) {
+  position: relative;
+  font-size: $size;
+  font-weight: $weight;
+  line-height: $l_height;
+  padding: 10px;
+  margin: 30px 0 20px;
+  color: #111;
+  background-color: #eee;
+  border-left: 12px solid #111;
+  &::before {
+    content: " ";
+    position: absolute;
+    top: 100%;
+    left: 28px;
+    width: 0;
+    height: 0;
+    border-width: 12px;
+    border-style: solid;
+    border-color: transparent;
+    border-top-color: #eee;
+  }
+}
+
+
+@mixin title_border_left_bottom($size, $weight) {
+  font-size: $size;
+  font-weight: $weight;
+  line-height: 1.5em;
+  padding: 10px;
+  margin: 30px 0 20px;
+  color: #111;
+  border-left: 12px solid #111;
+  border-bottom: 5px solid #111;
+}
+
+@mixin title_border_left($size, $weight) {
+  font-size: $size;
+  font-weight: $weight;
+  line-height: 1.5em;
+  padding: 10px 16px;
+  margin: 30px 0 20px;
+  color: #111;
+  border-left: 6px solid #111;
+}
+
+// 下線つき
+@mixin title_border_bottom($size, $weight) {
+  font-size: $size;
+  font-weight: $weight;
+  line-height: 1.5em;
+  padding: 10px 0;
+  margin: 30px 0 20px;
+  border-bottom: solid 3px $gray3;
+}
+
+// 下線つき
+@mixin title_border_bottom_stripe($en_size, $ja_size) {
+  padding-bottom: 8px;
+  position: relative;
+  margin-bottom: 20px;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 5px;
+    background: repeating-linear-gradient(-45deg, #D3D3D3, #D3D3D3 2px, #fff 2px, #fff 4px);
+  }
+  .section_title_en {
+    font-family: $hind;
+    font-size: $en_size;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+  .section_title_ja {
+    font-size: $ja_size;
+  }
+}
+
+@mixin title_check_mark($size, $weight) {
+  position: relative;
+  font-size: $size;
+  font-weight: $weight;
+  padding: 10px 10px 10px 1.2em;/*アイコン分のスペース*/
+  margin: 30px 0 20px;
+  line-height: 1.4em;
+  
+  &::before {
+    font-family: "Font Awesome 5 Free";
+    content: "\f00c";/*アイコンのユニコード*/
+    font-weight: 900;
+    position: absolute;/*絶対位置*/
+    //font-size: 1em;/*サイズ*/
+    left: 0;/*アイコンの位置*/
+    color: $gray3; /*アイコン色*/
+  }
+}
+
+
+/*=======================================
+  テキスト系
+=======================================*/
+@mixin general_text($size:18px, $align: center) {
+  font-size: $size;
+  text-align: $align;
+  line-height: 1.8;
+  @include sp {
+    font-size: 16px;
+  };
+}
+
+@mixin general_text_emphasized ($align: center) {
+  font-size: 22px;
+  font-weight: $gothic_bold;
+  line-height: 1.8;
+  text-align: $align;
+}
+
+@mixin article_text($size, $weight) {
+  font-size: $size;
+  font-weight: $weight;
+  padding: 10px;
+  margin: 30px 0 20px;
+  color: #111;
+  border-left: 5px solid #111;
+}
+
+
+
+
+/*=======================================
+  パーツ系
+=======================================*/
+
+@mixin arrow_icon_r {
+  content: "\f105";
+  display: inline-block;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+@mixin arrow_icon_l {
+  content: "\f104";
+  display: inline-block;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+@mixin calender_icon {
+  content: "\f073";
+  display: inline-block;
+  font-family: "Font Awesome 5 Free";
+  font-size: 1.2em;
+  font-weight: 500;
+  margin-right: 6px;
+}
+// ひっかき傷のborder
+@mixin border {
+  background-image: image-url("border01.png");
+  background-repeat: no-repeat;
+  background-position: center bottom;
+}
+// リンクボタン
+@mixin link_btn_black($font, $weight: normal) {
+  display: block;
+  width: 100%;
+  position: relative;
+  color: #fff;
+  font-family: $font;
+  font-size: 18px;
+  font-weight: $weight;
+  text-align: center;
+  background: #070707;
+  padding: 1.2em 1em;
+  border: solid 4px #070707;
+  &::before {
+    @include arrow_icon_r;
+    position: absolute;
+    right: 1em;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+  &:hover {
+    background: #fff;
+    color: #070707;
+  }
+}
+@mixin link_btn_white($font, $weight: normal) {
+  display: block;
+  width: 100%;
+  position: relative;
+  color: #070707;
+  font-family: $font;
+  font-size: 18px;
+  font-weight: $weight;
+  text-align: center;
+  background: #fff;
+  padding: 1.2em 1em;
+  border: solid 4px #070707;
+  &::before {
+    @include arrow_icon_r;
+    position: absolute;
+    right: 1em;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+  &:hover {
+    background: #070707;
+    color: #fff;
+  }
+}
+@mixin link_btn_black_soft($font, $weight: normal) {
+  display: block;
+  width: 100%;
+  position: relative;
+  color: #fff;
+  font-family: $font;
+  font-size: 18px;
+  font-weight: $weight;
+  text-align: center;
+  background: $gray3;
+  padding: 1.2em 1em;
+  border: solid 2px $gray3;
+  border-radius: 4px;
+  &::before {
+    @include arrow_icon_r;
+    position: absolute;
+    right: 1em;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+  &:hover {
+    background: #fff;
+    color: $gray3;
+  }
+}
+@mixin link_btn_white_soft($font, $weight: normal) {
+  display: block;
+  width: 100%;
+  position: relative;
+  color: $gray3;
+  font-family: $font;
+  font-size: 18px;
+  font-weight: $weight;
+  text-align: center;
+  background: #fff;
+  padding: 1.2em 1em;
+  border: solid 2px $gray3;
+  border-radius: 4px;
+  &::before {
+    @include arrow_icon_r;
+    position: absolute;
+    right: 1em;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+  &:hover {
+    background: $gray3;
+    color: #fff;
+  }
+}
+
+
+
+
+
+
+/*=======================================
+  フォーム系
+=======================================*/
+
+@mixin form($height) {
+  width: 100%;
+  height: $height;
+  font-size: 16px;
+  font-family: $gothic; //明示
+  padding: 3px;
+  margin-top: 10px;
+  transition: 0.2s;
+  color: $gray3;
+  border: 1px solid $gray7;
+  background-color: #f7f7f7;
+  border-radius: 4px;
+  &:focus {
+    box-shadow: 0 0 5px 1px rgba(150, 150, 150, 0.5);
+  }
+  &::placeholder {
+    color: #aaaaaa;
+    font-family: $gothic; //明示
+    font-size: 16px;
+  }
+  &::-ms-input-placeholder {
+    color: #aaaaaa;
+    font-family: $gothic; //明示
+    font-size: 16px;
+  }
+}
+
+@mixin checkbox1 {
+  display: none;
+  + label:before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 500;
+    display: inline-block;
+    content: "\f0c8";
+    margin: 0 10px 0 0;
+    border: 1px solid rgb(255, 142, 142);
+    box-shadow: 0px 0px 5px 0px #ffaaaa; //横ずれ 縦ずれ ぼかし度 サイズ 色
+  }
+  &:checked + label:before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 600;
+    content: "\f14a";
+    margin: 0 10px 0 0;
+  }
+}
+
+@mixin submit_button($height) {
+  display: inline-block;
+  width: 100%;
+  height: $height;
+  padding: 0.3em 1.5em;
+  font-size: 110%;
+  font-family: $gothic; //明示
+  text-decoration: none;
+  color: white;
+  background: $gray3;
+  border: solid 1px #555555;
+  border-radius: 4px;
+  transition: .15s;
+  cursor: pointer;
+  &:hover {
+    background: white;
+    color: $gray3;
+  }
+}
+
+@mixin submit_button_disabled($height) {
+  display: inline-block;
+  width: 100%;
+  height: $height;
+  padding: 0.3em 1.5em;
+  font-size: 110%;
+  font-family: $gothic; //明示
+  text-decoration: none;
+  color: white;
+  background: #ccc;
+  border: solid 1px $graye;
+  border-radius: 4px;
+  transition: .15s;
+  pointer-events: none;
+}
+
+//Formの必須項目に付ける印
+.required::after {
+  content: "*必須";
+  color: rgb(207, 70, 70);
+  font-size: 12px;
+}
+a {
+  color: inherit;
+  &:link {
+    color: inherit;
+  }
+  &:visited {
+    color: inherit;
+  }
+  &:hover {
+    color: inherit;
+  }
+  &:active {
+    color: inherit;
+  }
+}
+
+
+/*=======================================
+  ヘッダー・フッター
+=======================================*/
+//ヘッダー
+@mixin header_box {
+  height: 64px;
+  margin-top: 5px;
+  padding: 0 $padding_nomal;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @include sp {
+    display: block;
+  };
+}
+
+//ヘッダー内ul
+@mixin header_ul {
+  margin: 0;
+  padding: 0;
+  list-style: none; //リストの黒丸消すやつ
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  @include sp {
+    display: block;
+  };
+}
+
+//ヘッダー内li
+@mixin header_li {
+  font-size: 18px;
+  font-family: $hind;
+  color: $gray3;
+  margin-right: 30px;
+  @include tab {
+    font-size: 16px;
+    margin-right: 16px;
+  };
+}
+
+@mixin footer_block {
+  width: 100%;
+  height: $footer_height;
+  background-color: $gray3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; //左右端揃え
+}
+
+@mixin footer_logo {
+  max-width: 160px;
+  a {
+    display: block;
+    .footer_logo {
+      width: 100%;
+      &:hover {
+        opacity: .6;
+      }
+    }
+  }
+}
+
+@mixin footer_li {
+  li {
+    display: inline-block;
+    margin: 0 0.5em;
+    font-family: $hind;
+    list-style-type: none;
+  }
+}
+
+//ヘッダーとフッターのリンク
+@mixin header_footer_anchor($bottom, $color) {
+  a {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+  }
+  a::after {
+    position: absolute;
+    bottom: $bottom;
+    left: 0;
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: $color;
+    transform: scale(0, 1);
+    transform-origin: right top;
+    transition: transform 0.2s;
+  }
+  a:hover::after {
+    transform-origin: left top;
+    transform: scale(1, 1);
+  }
+}
+
+
+
+/*=======================================
+  ハンバーガーメニュー
+=======================================*/
+@mixin humberger_menu {
+  /*ナビメニューのスタイルを指定*/
+  .header_r {
+    position: fixed; /*表示位置を固定*/
+    z-index: 200; 
+    top: 0; /*表示位置を指定*/
+    left: 0; /*表示位置を指定*/
+    background: #fff;/*背景を白にする*/
+    color: #000; /*文字色を黒にする*/
+    text-align: center; /*テキストを中央揃え*/
+    width: 100%; /*全幅表示*/
+    transform: translateX(100%); /*ナビを上に隠す*/
+    transition: all 0.3s ease-in-out; /*アニメーションの時間を指定*/
+    @include sp() {
+      height: 100%;
+    };
+    .gnav_area {
+      @include sp() {
+        height: 100%;
+        position: relative;
+      };
+      .gnav {
+        background: #fff; /*背景をグレーにする*/
+        width: 100%;
+        margin: 0 auto;
+        padding: 0;
+        @include sp() {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%,-50%);
+          background-image: image-url("scratch.png");
+          background-repeat: no-repeat;
+          background-position: center 85%;
+        };
+        li {
+          list-style-type: none;
+          padding: 0;
+          width: 100%;
+          border-bottom: 1px dotted #333;
+          &:last-child {
+            padding-bottom: 0;
+            border-bottom: none; /*最後のメニュー項目のみ下線を消す*/
+          }
+          @include sp() {
+            border-bottom: none;
+            margin-bottom: 24px;
+          };
+          a {
+          display: block; /*クリックできる領域を広げる*/
+          color: #000;
+          padding: 1em 0;
+            @include sp() {
+              display: inline-block;
+              padding: 4px 0;
+              font-size: 22px;
+              font-weight: bold;
+              letter-spacing: 0.06em;
+            };
+          }
+        }
+      } 
+   }
+  }
+    /*トグルボタンが押されたときに付与するクラス*/
+  .header_r.active {
+    transform: translateX(0%);
+  }
+
+  /*トグルボタンのスタイルを指定*/
+  .Toggle {
+    display: block;
+    position: fixed; /* bodyに対しての絶対位置指定 */
+    right: 20px;
+    top: 14px;
+    width: 42px;
+    height: 42px;
+    cursor: pointer;
+    z-index: 300;
+  }    
+  .Toggle span {
+    display: block;
+    position: absolute;
+    width: 30px;
+    border-bottom: solid 4px #555;
+    -webkit-transition: .35s ease-in-out;	/*変化の速度を指定*/
+    -moz-transition: .35s ease-in-out;		/*変化の速度を指定*/
+    transition: .35s ease-in-out;			/*変化の速度を指定*/
+    left: 6px;
+    border-radius: 4px;
+  }
+    
+  .Toggle span:nth-child(1) {
+    top: 8px;
+  }
+
+  .Toggle span:nth-child(2) {
+    top: 18px;
+  }
+    
+  .Toggle span:nth-child(3) {
+    top: 28px;
+  }
+    
+  /* 最初のspanをマイナス45度に */
+  .Toggle.active span:nth-child(1) {
+    width: 40%;
+    transform: translate3d(3px, 5px, 0px) rotate(45deg);
+  }
+    
+  /* 2番目と3番目のspanを45度に */
+  .Toggle.active span:nth-child(2) {
+    transform: translate3d(1px, 0px, 0px) rotate(-45deg);
+  }
+
+  .Toggle.active span:nth-child(3) {
+    width: 40%;
+    transform: translate3d(13px, -5px, 0px) rotate(45deg);
+  }
+}
+
+
+
+
+
+/*=======================================
+  Railsメッセージ系
+=======================================*/
+#notice {
+  color: green; 
+}
+
+#error_explanation {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgb(255, 142, 142);
+  background-color: #ffebeb; 
+  border-radius: 10px;/*角の丸み*/
+}
+
+#error_explanation h2 {
+  display: none;
+}
+
+#error_explanation ul li {
+  font-size: 12px;
+  line-height: 1.3em;
+}
