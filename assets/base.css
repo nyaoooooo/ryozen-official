@@ -7,9 +7,45 @@
      position: fixed;
      width: 100vw;
      height: 100vh;
-     background-color: #666;
+     background-color: #333333;
      z-index: 999;
  }
+
+ #loading svg {
+     width: 10%;
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+ }
+
+.stroke {
+    fill:transparent;
+    stroke:#fff;
+    stroke-dasharray: 500;
+    stroke-width: 5;
+    animation: svg 4s ease-in 0s;
+}
+
+@keyframes svg {
+    　　0% {
+    　　　　stroke-dashoffset: 2000;
+    stroke-dasharray: 500;
+    　　　　fill:transparent;
+    　　}
+    　　40% {
+    　　　　stroke-dashoffset: 2000;
+    　　　　fill:transparent;
+    　　}
+    　　50% {
+    　　　　fill:transparent;
+    　　}
+    　　100% {
+    　　　　stroke-dashoffset: 0;
+    stroke-dasharray: 0;
+    　　　　fill:#fff;
+    　　}
+    }
 
 #loading span:nth-of-type(1) {
     display: block;
